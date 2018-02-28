@@ -11,20 +11,21 @@ io.on('connection', function(socket){
 	
 	players.push(thisPlayerId);
 	
-	console.log('client connected... spawning player id: ' + thisPlayerId);
+	console.log('client connected spawning player id: '+ thisPlayerId);
 	
 	socket.broadcast.emit('spawn player', {id:thisPlayerId});
 	
 	players.forEach(function(playerId){
-		if(playerId == thisPlayerId)
-			return;
+		if(playerId == thisPlayerId)return;
 		
 		socket.emit('spawn player', {id:playerId});
 		console.log("Adding a new player", playerId);
 	});
 	
-	socket.on('playerhere', function(data){
-		console.log("Player is logged in");
+	socket.on('move', function(data){
+		data.id = thisPlayerId;
+		console.log("Player position is: ", JSON.stringify(data));
+		socket.broadcast.emit('move', data);
 	});
 	
 	socket.on('disconnect', function(){
