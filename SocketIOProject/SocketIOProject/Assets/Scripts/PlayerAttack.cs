@@ -5,8 +5,9 @@ using UnityEngine;
 public class PlayerAttack : MonoBehaviour
 {
     private Animator anim;
-	// Use this for initialization
-	void Start ()
+    public bool isActive;
+    // Use this for initialization
+    void Start ()
     {
         anim = GetComponent<Animator>();
 	}
